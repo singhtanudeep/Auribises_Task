@@ -86,6 +86,7 @@ export default function Page() {
 				setIsOpen(false)
 				clearFormFields() // Clear the form fields on success
 				await fetchAgents()
+				await importUsersFromFirestore()
 			}
 		} catch (error) {
 			toast.error("Unable to add Store!!")

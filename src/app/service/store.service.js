@@ -2,6 +2,8 @@
 
 import { addDoc, collection, getDocs } from "firebase/firestore"
 import { db } from "../lib/firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import auth from "./login.service"
 
 export async function addStore(agentData) {
 	try {
@@ -40,8 +42,9 @@ export async function importUsersFromFirestore() {
 	}
 
 	// Loop through each document in the "Stores" collection
-	snapshot.forEach(async (doc) => {
+	for (const doc of snapshot.docs) {
 		const storeData = doc.data() // Fetch JSON data
+		console.log(storeData)
 
 		// Ensure email and password exist in the document
 		if (storeData.email && storeData.password) {
@@ -60,5 +63,5 @@ export async function importUsersFromFirestore() {
 		} else {
 			console.log(`Skipping ${doc.id}, missing email or password.`)
 		}
-	})
+	}
 }

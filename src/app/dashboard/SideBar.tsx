@@ -1,8 +1,18 @@
 "use client"
 import Link from "next/link"
 import React from "react"
+import { logoutService } from "../service/login.service"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 export default function SideBar() {
+	const router = useRouter()
+	const handleLogOut = async () => {
+		await logoutService()
+		toast.success("Logout Successfully")
+		router.push("/")
+	}
+
 	return (
 		<div>
 			<div className="min-h-screen flex flex-col max-w-64 flex-shrink-0 antialiased  text-gray-800">
@@ -131,6 +141,7 @@ export default function SideBar() {
 							<li>
 								<a
 									href="#"
+									onClick={handleLogOut}
 									className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
 								>
 									<span className="inline-flex justify-center items-center ml-4">

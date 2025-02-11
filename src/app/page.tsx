@@ -17,13 +17,14 @@ export default function Page() {
 		try {
 			const res = await loginService(email, password)
 			if (res) {
-				toast.success("Login successfull")
 				router.push("/dashboard")
+				toast.success("Login successfull")
 			}
 		} catch (error) {
 			toast.error("Failed to Login!")
 		}
 	}
+
 	return (
 		<>
 			<div className="h-[100vh] items-center flex bg-gradient justify-center px-5 lg:px-0">
