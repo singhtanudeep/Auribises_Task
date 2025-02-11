@@ -4,6 +4,7 @@ import "./login.css"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 import { loginService } from "./service/login.service"
+import { NextResponse } from "next/server"
 
 export default function Page() {
 	const [email, setEmail] = useState("")
@@ -14,14 +15,27 @@ export default function Page() {
 	const handleSuperAdminLogin = (e: any) => {
 		e.preventDefault()
 		setError("")
+
 		if (email === "ramneet@gmail.com" && password === "123456") {
+			// Save user details to cookies instead of localStorage
+			document.cookie = `user=${JSON.stringify({
+				email,
+				password,
+			})}; path=/;`
+		}
+
+		// Retrieve stored user from cookie
+		const storedUser = document.cookie
+			.split(";")
+			.find((cookie) => cookie.trim().startsWith("user="))
+
+		if (storedUser) {
 			toast.success("Login successful")
 			router.push("/dashboard")
 		} else {
 			toast.error("Invalid credentials!")
 		}
 	}
-
 	const handleStoreAdminLogin = async (e: any) => {
 		e.preventDefault()
 		setError("")

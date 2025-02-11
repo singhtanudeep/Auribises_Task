@@ -16,6 +16,7 @@ export const loginService = async (email, password) => {
 			email,
 			password
 		)
+
 		if (userCredential) {
 			const user = userCredential.user
 			document.cookie = "user=authenticated; path=/; max-age=3600" // Set a cookie that expires in 1 hour
